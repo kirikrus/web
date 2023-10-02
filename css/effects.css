@@ -1,0 +1,26 @@
+._zoomOut:hover p,
+._zoomOut:hover img {
+    transition: 0.3s linear;
+    transform: scale(1.2);
+    color: var(--main-color);
+}
+
+._zoomIn:hover {
+    transition: 0.3s linear;
+    transform: scale(0.9);
+    filter: opacity(0.8);
+}
+
+._zoomOut,
+._zoomOut p,
+._zoomIn,
+._focus,
+._zoomOut img {
+    transition: 0.3s linear;
+}
+
+._focus:active,
+._zoomIn:active {
+    transition: 0.1s linear;
+    filter: brightness(1.5);
+}

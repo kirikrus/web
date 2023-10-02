@@ -1,0 +1,281 @@
+<html id="html" style="width: 1700px;" onmousemove="getPositionMove(event)">
+
+<head>
+  <title>Летуаль 2.0</title>
+  <link rel="stylesheet" href="css/letoile.css">
+  <link rel="stylesheet" href="css/effects.css">
+  <link rel="stylesheet" href="css/modals.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <script src="js/some.js"></script>
+  <script src="js/modal.js"></script>
+</head>
+
+<body onscroll="getPositionScroll(event)" onload="reload()">
+
+  <div id="reg">
+    <p class="text" style="font-weight: 600; font-size: 40px; color: var(--main-color); margin: 50px 0 0 0;">Регистрация
+    </p>
+    <input style=" grid-area: name" placeholder="Имя" class="baseButton">
+    <input style=" grid-area: email" placeholder="Email@email" class="baseButton">
+    <input style=" grid-area: password" placeholder="Пароль" class="baseButton">
+    <button style=" grid-area: confirm; background: var(--main-color)" class="baseButton _zoomIn"
+      onclick="close_modal(1)">Подтвердить</button>
+  </div>
+
+  <div id="productModal" class="product text">
+    <img src="css/img/pngwing.com (2).png">
+    <div>
+      <b>GUCCI QUALITY</b>
+      <p>7899₽</p>
+    </div>
+    <button style="grid-area: confirm; background: var(--main-color)" class="baseButton _zoomIn"
+      onclick="close_modal(2)">купить</button>
+  </div>
+
+  <span id="mousePoint"></span>
+
+  <div id="blackOut"></div>
+
+  <div id="mainPage">
+
+    <table border="0" style="width:1500; height:250px;">
+      <tr id="navBar">
+        <td class="vatop" width="150" style=" padding-top: 20px">
+          <img id="labelImage" src="\css\img\30.png" />
+        </td>
+        <td class="vatop pdtop50 " style="width: 50px;">
+        </td>
+        <td class="vatop pdtop50 _zoomOut">
+          <p>Главная</p>
+        </td>
+        <td class="vatop pdtop50 _zoomOut">
+          <p>Парфюмерия</p>
+        </td>
+        <td class="vatop pdtop50 _zoomOut">
+          <p>Косметика</p>
+        </td>
+        <td width="290px">
+
+          <table id="navReg" align="center" style="z-index: 2; position: relative;">
+            <tr>
+              <td>
+                <input class="baseButton" type="text" placeholder="Почта" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 10px">
+                <input class="baseButton" type="password" placeholder="Пароль" />
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-top: 10px">
+                <button class="baseButton _zoomIn " style="
+                      background: var(--main-color);
+                      width: 114px;
+                      height: 50px;
+                    ">
+                  Вход
+                </button>
+              </td>
+            </tr>
+            <tr align="center">
+              <td>
+                <button style="color: var(--grey-text); background: none; border: none;" onclick="open_modal(1)">нет
+                  аккаунта?</button>
+              </td>
+            </tr>
+          </table>
+
+          <table id="navIcons" align="center"
+            style="display: none;z-index: 2; position: relative; margin: -85px 0 0 110px;">
+            <tr>
+              <td class="_zoomOut" style="width: 80px;">
+                <a style="width: 55px; display: block;" href=""><img src="css/img/bag_icon.png"></a>
+              </td>
+              <td class="_zoomOut">
+                <a style="width: 55px; display: block;" href="pages/profile.html"><img
+                    src="css/img/profile_icon.png"></a>
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+
+    <table style="border-spacing: 0; margin-top: -50px" border="0" width="1500" cellpadding="0" align="center">
+      <tr>
+        <td>
+          <img src="css/img/model.png" align="left" style="z-index: 99; position: relative; pointer-events: none;" />
+          <span id="cyrcle"></span>
+          <span id="mainImgShadow"></span>
+          <div class="pdtop50" style="width: 100%; position: absolute; margin-left: 400px;">
+            <span class="textHightlightBig">cosmetics</span>
+            <span class="textHightlightBig"
+              style="color: var(--main-color); z-index: 0; -webkit-text-stroke: 18px var(--main-color);">cosmetics</span>
+            <span class="textHightlightBig" style="top:250px;transform: scale(0.9,1);"> store</span>
+            <span class="textHightlightBig"
+              style="color: var(--main-color); z-index: 0; -webkit-text-stroke: 18px var(--main-color); top:250px; transform: scale(0.9,1);">
+              store</span>
+            <div id="mainText" class="text">
+              - это не просто бренд, это история вашей неповторимой красоты,
+              воплощенная в ароматах и текстурах, макияже и уходе. Мы -
+              путеводители по бескрайним просторам мира косметики и
+              парфюмерии, предлагая вам непередаваемый опыт собственной
+              трансформации и самовыражения.
+            </div>
+          </div>
+
+          <div style="margin-top: 600px; height: 740px;padding-top: 70px;">
+            <span class="bgImgBlur"
+              style="margin-top: -70px; filter: grayscale(1) brightness(1) invert(1) blur(1px); opacity: 0.2;"><img
+                src="css/img/карта_фон.png" style=" width: 1496px; " />
+            </span>
+
+            <div id="mapFrame">
+              <table width="100%" height="600px" style=" padding: 50px;">
+                <tr>
+                  <td width="100%">
+                    <table align="center" cellspacing="40px" class="text"
+                      style="color: var(--main-color); font-size: 26px; font-weight: 500;    -webkit-border-horizontal-spacing: 20px;">
+                      <tr>
+                        <td>Пн</td>
+                        <td rowspan="5" style="font-weight: 700;;">8<sup>00</sup> - 20<sup>00</sup></td>
+                      </tr>
+                      <tr>
+                        <td>ВТ</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>СР</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>ЧТ</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>ПТ</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>СБ</td>
+                        <td rowspan="2" style="font-weight: 700;">6<sup>00</sup> - 21<sup>00</sup></td>
+                      </tr>
+                      <tr>
+                        <td>ВС</td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right" style=" filter: grayscale(1) brightness(1) invert(1);">
+                    <script style="display: block; width: 600px;height: 600px;" type="text/javascript" charset="utf-8"
+                      async
+                      src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae9d19015764125494abab00ab33d505ae9734fc39b5972a7b6e6e35f06b91289&amp;width=600&amp;height=600&amp;lang=ru_RU&amp;scroll=true">
+                      </script>
+                </tr>
+              </table>
+              <span class="text"
+                style="position: absolute; color: var(--main-color); font-weight: 700; left: 1100px;">(2023)</span>
+            </div>
+          </div>
+
+          <table class="text" width="100%" height="900px" style="margin-top: 30px;">
+            <tbody>
+              <tr>
+                <td colspan="3"
+                  style="text-transform: uppercase; font-weight: 500; font-size: 32px;line-height: 90%; letter-spacing: 13px;">
+                  the most beautiful story begins here</td>
+              </tr>
+              <tr height="600px">
+                <td align="center">
+                  <div class="photoCard">
+                    <img src="css/img/gucci_model.png" style="width: 400; padding: 16px;" />
+                    <p>- GUCCI -<br />2006</p>
+                  </div>
+                </td>
+                <td align="center">
+                  <div class="photoCard" style="background: white; color: var(--main-color);">
+                    <img src="css/img/chanel_model.png" style="width: 400; padding: 16px;" />
+                    <p>- CHANEL -<br />2011</p>
+                  </div>
+                </td>
+                <td align="center">
+                  <div class="photoCard" style="background: var(--main-color); color: black;">
+                    <img src="css/img/lacoste_model.png" style="width: 400; padding: 16px" />
+                    <p>- LACOSTE -<br />2020</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" align="center"
+                  style="color: var(--main-color);font-weight: 200;font-size: 48px;letter-spacing: 13px;">
+                  Nobody’s perfect, but you.</td>
+              </tr>
+              <tr>
+                <td colspan="3" align="center" style="font-weight: 500;font-size: 32pxs;">enjoy yourself</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" class="pdtop50">
+            <tr>
+              <td class="search">
+                <button class="baseButton _focus">Поиск</button>
+                <input class="baseButton" type="text" placeholder="GUCCI Bloo..." />
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+
+    <div class="buyPage">
+      <div class="product text" onclick="open_modal(2)">
+        <img src="css/img/pngwing.com (2).png">
+        <div>
+          <b>GUCCI QUALITY</b>
+          <p>7899₽</p>
+        </div>
+      </div>
+
+      <div class="product text" onclick="open_modal(2)">
+        <img src="css/img/pngwing.com (1).png">
+        <div>
+          <b>GUCCI QUALITY</b>
+          <p>7899₽</p>
+        </div>
+      </div>
+
+      <div class="product text" onclick="open_modal(2)">
+        <img src="css/img/pngwing.com.png">
+        <div>
+          <b>GUCCI QUALITY</b>
+          <p>7899₽</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<footer>
+  <table align="center" height="150px" width="1500px">
+    <tr>
+      <td></td>
+      <td>© Все права защищены</td>
+      <td align="right" style="padding-right: 50px;">+7(977)303-95-29</td>
+    </tr>
+  </table>
+</footer>
+
+</html>
