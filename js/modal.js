@@ -26,3 +26,22 @@ function close_modal(key) {
             break;
     }
 }
+
+function searchSortOpenClose(index, close = 0) {
+    divElements = document.querySelectorAll('#searchTb .searchCard');
+    targetElement = divElements[index - 1];
+
+    if (!close) {
+        targetElement.style.height = 'fit-content';
+        targetElement.style.overflow = 'visible';
+    }
+    else {
+        targetElement.style.height = '0';
+        targetElement.style.overflow = 'hidden';
+    }
+}
+
+
+
+
+

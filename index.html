@@ -13,6 +13,7 @@
     rel="stylesheet">
   <script src="js/some.js"></script>
   <script src="js/modal.js"></script>
+  <script src="js/data.js"></script>
 </head>
 
 <body onscroll="getPositionScroll(event)" onload="reload()">
@@ -227,14 +228,55 @@
             </tbody>
           </table>
 
-          <table width="100%" class="pdtop50">
+          <table width="100%" class="pdtop50 text">
             <tr>
-              <td class="search">
+              <td class="search" colspan="6">
                 <button class="baseButton _focus">Поиск</button>
                 <input class="baseButton" type="text" placeholder="GUCCI Bloo..." />
               </td>
             </tr>
+            <tr style="font-size: 26px; text-align: center;">
+              <td width="230px"></td>
+              <td width="250px" onclick="searchSortOpenClose(1)">сортировка <img src="/css/img/list.png"></td>
+              <td width="250px" onclick="searchSortOpenClose(2)">категории <img src="/css/img/list.png"></td>
+              <td width="250px" onclick="searchSortOpenClose(3)">оценки <img src="/css/img/list.png"></td>
+              <td width="250px" onclick="searchSortOpenClose(4)">стоимость <img src="/css/img/list.png"></td>
+              <td></td>
+            </tr>
           </table>
+
+          <div id="searchTb" width="auto" class="text" style="margin-top: -36px;">
+            <div class="searchCard" style="grid-area: '1';">
+              <b onclick="searchSortOpenClose(1,1)">сортировка <img src="/css/img/list.png"></b>
+              <p onclick="searchSort(event,1)">по стоимости min</p>
+              <p onclick="searchSort(event,1)">по стоимости max</p>
+              <p onclick="searchSort(event,1)">по алфавиту A->Z</p>
+              <p onclick="searchSort(event,1)">по алфавиту Z->A</p>
+              <p onclick="searchSort(event,1)">по новизне</p>
+              <p onclick="searchSort(event,1)">по рейтингу</p>
+            </div>
+            <div class="searchCard" style="grid-area: '2';">
+              <b onclick="searchSortOpenClose(2,1)">категории <img src="/css/img/list.png"></b>
+              <p onclick="searchSort(event)">духи</p>
+              <p onclick="searchSort(event)">косметика</p>
+            </div>
+            <div class="searchCard" style="grid-area: '3';">
+              <b onclick="searchSortOpenClose(3,1)">оценки <img src="/css/img/list.png"></b>
+              <p onclick="searchSort(event)">⭐</p>
+              <p onclick="searchSort(event)">⭐⭐</p>
+              <p onclick="searchSort(event)">⭐⭐⭐</p>
+              <p onclick="searchSort(event)">⭐⭐⭐⭐</p>
+              <p onclick="searchSort(event)">⭐⭐⭐⭐⭐</p>
+            </div>
+            <div class="searchCard" style="grid-area: '4';">
+              <b onclick="searchSortOpenClose(4,1)">стоимость <img src="/css/img/list.png"></b>
+              <i>от</i>
+              <input style="width: 223px; height: 40px; background: lightgray;" placeholder="1000"></input>
+              <i>до</i>
+              <input style="width: 223px; height: 40px; background: lightgray; margin-bottom: 30px;"
+                placeholder="5000"></input>
+            </div>
+          </div>
 
         </td>
       </tr>

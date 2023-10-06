@@ -249,6 +249,73 @@ body {
     color: var(--black-text);
 }
 
+.searchCard {
+    display: flex;
+    width: 250px;
+    height: 0;
+    overflow: hidden;
+    border-radius: 41px;
+    background: white;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+    font-size: 20px;
+    justify-items: center;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.5s ease-in-out;
+}
+
+.searchCard p,
+.searchCard i {
+    margin: 0;
+    color: #5B5B5B;
+    font-weight: 400;
+    border-top: 1px solid #5B5B5B;
+    border-bottom: 1px solid #5B5B5B;
+    width: 220px;
+    height: 40px;
+    padding-top: 5px;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.searchCard p:last-child {
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+.searchCard b {
+    color: #5B5B5B;
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.searchCard input {
+    font-size: 32px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.searchCard p:hover {
+    background: rgba(211, 211, 211, 0.5);
+}
+
+#searchTb {
+    height: auto;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    grid-template-areas: '1 2 3 4';
+    grid-template-columns: repeat(4, 250px);
+    transition: .5s linear;
+}
+
 .buyPage {
     display: flex;
     flex-wrap: wrap;
