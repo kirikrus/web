@@ -1,4 +1,4 @@
-function open_modal(key) {
+function open_modal(key, productId = null) {
     document.getElementById('blackOut').style.display = 'block';
     document.getElementById('html').style.overflow = 'hidden hidden';
     switch (key) {
@@ -6,11 +6,50 @@ function open_modal(key) {
             document.getElementById('reg').style.display = 'grid';
             break;
         case 2:
-            document.getElementById('productModal').style.display = 'grid';
+            var modal = document.getElementById('productModal');
+
+            //XMLHttpRequest для отправки запроса на сервак
+            var xhr = new XMLHttpRequest();
+
+            document.querySelector('#loader').style.display = 'block';
+
+            //обработка ответа
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.querySelector('#loader').style.display = 'none';
+                    var productData = JSON.parse(xhr.responseText);//ответ сервака
+
+                    modal.innerHTML = '<p style="grid-area: exit; justify-self: start;font-size: 100px;transform: rotate(45deg);  font-weight: 200; color: lightgrey; margin: 30px 0 0 30px; cursor: pointer;" onclick="close_modal(2)">+</p>'
+                        +
+                        '<img src="css/img/' + productData.image + '" style="grid-area: photo;">'
+                        +
+                        '<div style="grid-area: name;">'
+                        +
+                        '<b style="text-transform: uppercase;">' + productData.name + '</b>'
+                        +
+                        '<p>' + productData.price + '₽</p>'
+                        +
+                        '<p style="margin-top: -7px;color: #bababa;font-size: 16px;font-weight: 300;">5,0 ⭐</p>'
+                        +
+                        '</div>'
+                        +
+                        '<p style="grid-area: text; text-align: left;">' + productData.description + '</p>'
+                        +
+                        '<button style="grid-area: comment; background: transparent; border: 1px solid white; place-self: center" class="baseButton _zoomIn" onclick="open_modal(3)">отзывы</button>'
+                        +
+                        '<button style="grid-area: buy ;justify-self: left; align-self: center; width: 300px; background: ' + productData.color + ';" class="baseButton _zoomIn" onclick="close_modal(2)">купить</button>'
+                        +
+                        '<img src="css/img/heart.png" style="grid-area: like; width: 50px; place-self: center;">';
+                    modal.style.display = 'grid';
+                }
+            };
+
+            xhr.open('GET', 'base/getProduct.php?id=' + productId, true);
+            xhr.send();
             break;
         case 3:
             what = document.getElementById('commentCard');
-            if(what.style.display == 'grid')
+            if (what.style.display == 'grid')
                 close_modal(3);
             else
                 what.style.display = 'grid';
@@ -18,9 +57,9 @@ function open_modal(key) {
 }
 
 function close_modal(key) {
-    if(key != 3){
-    document.getElementById('blackOut').style.display = 'none';
-    document.getElementById('html').style.overflow = 'hidden overlay';
+    if (key != 3) {
+        document.getElementById('blackOut').style.display = 'none';
+        document.getElementById('html').style.overflow = 'hidden overlay';
     }
     switch (key) {
         case 1:
