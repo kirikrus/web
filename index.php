@@ -28,14 +28,58 @@
       onclick="close_modal(1)">Подтвердить</button>
   </div>
 
+  <div id="commentCard" class="text">
+    <div style="display: flex;flex-direction: column;align-content: center;align-items: center; overflow-y: scroll;">
+      <div class="commentMsg">
+        <b style="grid-area: name;">Ludocka_87_</b>
+        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
+        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
+      </div>
+      <div class="commentMsg">
+        <b style="grid-area: name;">Ludocka_87_</b>
+        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
+        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
+      </div>
+      <div class="commentMsg">
+        <b style="grid-area: name;">Ludocka_87_</b>
+        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
+        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
+      </div>
+      <div class="commentMsg">
+        <b style="grid-area: name;">Ludocka_87_</b>
+        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
+        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-rows: 30px 110px 30px; grid-template-areas: '1''2''3'; background: #404040;border-radius: 0px 0px 50px 50px;
+    ">
+    <div style="display: grid;grid-template-areas: '1 2 3 4 5'; width: min-content; margin-left: 30px;">
+      <span>⭐</span>
+      <span>⭐</span>
+      <span>⭐</span>
+      <span>⭐</span>
+      <span>⭐</span>
+    </div>
+    <textarea class="text" type="text" style="width: 288px;
+    height: 109px; place-self: center; "></textarea>
+    <button class="baseButton _focus _zoomIn" style="place-self: end;width: 50px; border-radius: 100%; background: var(--main-color); font-weight: 700; font-size: 30px;">↑</button>
+  </div>
+  </div>
+
   <div id="productModal" class="product text">
-    <img src="css/img/pngwing.com (2).png">
-    <div>
+    <p style="grid-area: exit; justify-self: start;font-size: 100px;transform: rotate(45.292deg);  font-weight: 200; color: lightgrey; margin: 30px 0 0 30px; cursor: pointer;" onclick="close_modal(2)">+</p>
+    <img src="css/img/pngwing.com (2).png" style="grid-area: photo;">
+    <div style="grid-area: name;">
       <b>GUCCI QUALITY</b>
       <p>7899₽</p>
+      <p style="margin-top: -7px;color: #bababa;font-size: 16px;font-weight: 300;">5,0 ⭐</p>
     </div>
-    <button style="grid-area: confirm; background: var(--main-color)" class="baseButton _zoomIn"
+    <p style="grid-area: text; text-align: left;">Lorem ipsum dolor sit amet consectetur. Felis sagittis laoreet id nunc massa tortor urna. Facilisi et nisl lectus ante turpis nunc vel mauris purus. Molestie pretium odio sit sit gravida nunc orci. Nec in eros tristique tortor bibendum non ante sapien at.</p>
+    <button style="grid-area: comment; background: transparent; border: 1px solid white; place-self: center" class="baseButton _zoomIn" onclick="open_modal(3)">отзывы</button>
+    <button style="grid-area: buy; background: var(--main-color) ;justify-self: left; align-self: center; width: 300px; background: #C8A685;" class="baseButton _zoomIn"
       onclick="close_modal(2)">купить</button>
+      <img src="css/img/heart.png" style="grid-area: like; width: 50px; place-self: center;">
+
   </div>
 
   <span id="mousePoint"></span>
@@ -99,7 +143,7 @@
                 <a style="width: 55px; display: block;" href=""><img src="css/img/bag_icon.png"></a>
               </td>
               <td class="_zoomOut">
-                <a style="width: 55px; display: block;" href="pages/profile.html"><img
+                <a style="width: 55px; display: block;" href="pages/profile.php"><img
                     src="css/img/profile_icon.png"></a>
               </td>
             </tr>
@@ -231,8 +275,10 @@
           <table width="100%" class="pdtop50 text">
             <tr>
               <td class="search" colspan="6">
-                <button class="baseButton _focus">Поиск</button>
-                <input class="baseButton" type="text" placeholder="GUCCI Bloo..." />
+                <form action="" method="post">
+                  <button class="baseButton _focus" type="submit">Поиск</button>
+                  <input class="baseButton" type="search" placeholder="GUCCI Bloo..." />
+              </form>
               </td>
             </tr>
             <tr style="font-size: 26px; text-align: center;">
@@ -283,29 +329,30 @@
     </table>
 
     <div class="buyPage">
-      <div class="product text" onclick="open_modal(2)">
-        <img src="css/img/pngwing.com (2).png">
-        <div>
-          <b>GUCCI QUALITY</b>
-          <p>7899₽</p>
-        </div>
-      </div>
-
-      <div class="product text" onclick="open_modal(2)">
-        <img src="css/img/pngwing.com (1).png">
-        <div>
-          <b>GUCCI QUALITY</b>
-          <p>7899₽</p>
-        </div>
-      </div>
-
-      <div class="product text" onclick="open_modal(2)">
-        <img src="css/img/pngwing.com.png">
-        <div>
-          <b>GUCCI QUALITY</b>
-          <p>7899₽</p>
-        </div>
-      </div>
+    <?php
+    $conn = mysqli_connect("localhost", "root", "", "bd");
+    if (!$conn) {
+      die("Ошибка: " . mysqli_connect_error());
+    }
+    $sql = "SELECT * FROM product";
+    if($result = mysqli_query($conn, $sql)){
+        
+        foreach($result as $row){
+          echo"<div class='product text' onclick='open_modal(2)'>";
+          echo"<img src='css/img/". $row["image"];echo"'>";
+          echo"<div>";
+          echo'<b style="text-transform: uppercase;">'. $row["name"] ."</b>";
+          echo"<p>". $row["price"] ."₽</p>";
+          echo"</div>";
+          echo"</div>";
+        }
+        echo "</table>";
+        mysqli_free_result($result);
+    } else{
+        echo "Ошибка: " . mysqli_error($conn);
+    }
+    mysqli_close($conn);
+    ?>
     </div>
   </div>
 </body>

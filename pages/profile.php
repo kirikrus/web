@@ -47,7 +47,7 @@
             <a onclick="profileNav(1)">Корзина</a>
             <a onclick="profileNav(2)">Избранное</a>
             <a onclick="profileNav(3)">Настройки</a>
-            <a href="../index.html">Главная</a>
+            <a href="../index.php">Главная</a>
         </div>
 
         <div id="profilePageName" style="grid-area: pageName; place-self: center; color: var(--white-color);"
@@ -152,10 +152,10 @@
             <div id="setting">
                 <p>Оформление</p>
                 <div id="settingColorPanel">
-                    <div class="themeColor" style="background: #76417A;"></div>
-                    <div class="themeColor" style="background: #417A51;"></div>
-                    <div class="themeColor" style="background: #7A4141;"></div>
-                    <div class="themeColor" style="background: #414E7A;"></div>
+                    <div onclick="changeColor('#76417A')" class="themeColor _focus _zoomIn" style="background: #76417A;"></div>
+                    <div onclick="changeColor('#417A51')" class="themeColor _focus _zoomIn" style="background: #417A51;"></div>
+                    <div onclick="changeColor('#7A4141')" class="themeColor _focus _zoomIn" style="background: #7A4141;"></div>
+                    <div onclick="changeColor('#414E7A')" class="themeColor _focus _zoomIn" style="background: #414E7A;"></div>
                 </div>
             </div>
             <div id="setting">

@@ -15,6 +15,8 @@ function getPositionScroll(event) {
 }
 
 function reload() {
+    html = document.querySelector('html');
+    html.style.setProperty('--main-color',  localStorage.getItem("color"));
     if (sessionStorage.getItem("entry") == 1) {
         document.getElementById('navReg').style.display = 'none';
         document.getElementById('navIcons').style.display = 'block';
@@ -50,4 +52,10 @@ function profileNav(key) {
             buttonName.innerHTML = 'Подтвердить';
             break;
     }
+}
+
+function changeColor(color){
+    localStorage.color = color;
+    html = document.querySelector('html');
+    html.style.setProperty('--main-color', color);
 }
