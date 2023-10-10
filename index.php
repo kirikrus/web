@@ -28,28 +28,9 @@
       onclick="close_modal(1)">Подтвердить</button>
   </div>
 
-  <div id="commentCard" class="text">
-    <div style="display: flex;flex-direction: column;align-content: center;align-items: center; overflow-y: scroll;">
-      <div class="commentMsg">
-        <b style="grid-area: name;">Ludocka_87_</b>
-        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
-        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
-      </div>
-      <div class="commentMsg">
-        <b style="grid-area: name;">Ludocka_87_</b>
-        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
-        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
-      </div>
-      <div class="commentMsg">
-        <b style="grid-area: name;">Ludocka_87_</b>
-        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
-        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
-      </div>
-      <div class="commentMsg">
-        <b style="grid-area: name;">Ludocka_87_</b>
-        <p style="grid-area: star; margin-top: 3px;">5⭐</p>
-        <p style="grid-area: text; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur. Nunc blandit bibendum.</p>
-      </div>
+  <div id="commentCard" class="text" style="display: none;">
+    <div id="commentCardFlex" style="display: flex;flex-direction: column;align-content: center;align-items: center; overflow-y: scroll;">
+
     </div>
     <div style="display: grid; grid-template-rows: 30px 110px 30px; grid-template-areas: '1''2''3'; background: #404040;border-radius: 0px 0px 50px 50px;
     ">

@@ -47,3 +47,32 @@ function searchSort(event, key = 0) {
             break;
     }
 }
+
+function commentUpdate(productId){
+    var modal = document.getElementById('commentCardFlex');
+    var xhr = new XMLHttpRequest();
+    document.querySelector('#loader').style.display = 'block';
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            document.querySelector('#loader').style.display = 'none';
+            var commentData = JSON.parse(xhr.responseText);//ответ сервака
+            
+            commentData.forEach(commentData => {
+                modal.innerHTML += 
+                '<div class="commentMsg">'
+                +
+                '<b style="grid-area: name;">'+ commentData.user_name +'</b>'
+                +
+                '<p style="grid-area: star; margin-top: 3px;">'+ commentData.rating +'⭐</p>'
+                +
+                '<p style="grid-area: text; margin-bottom: 0;">'+ commentData.text +'</p>'
+                +
+                '</div>'
+            });
+        }
+    };
+
+    xhr.open('GET', 'base/getComment.php?id=' + productId, true);
+    xhr.send();
+}

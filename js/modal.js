@@ -41,6 +41,7 @@ function open_modal(key, productId = null) {
                         +
                         '<img src="css/img/heart.png" style="grid-area: like; width: 50px; place-self: center;">';
                     modal.style.display = 'grid';
+                    commentUpdate(productId);
                 }
             };
 
@@ -73,6 +74,7 @@ function close_modal(key) {
             close_modal(3);
             break;
         case 3:
+            document.getElementById('commentCardFlex').innerHTML = '';
             document.getElementById('commentCard').style.display = 'none';
     }
 }
