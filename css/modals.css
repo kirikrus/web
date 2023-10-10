@@ -1,11 +1,11 @@
-#reg{
+#reg {
     display: none;
-    grid-template-areas: 
-    "label" 
-    "name"  
-    "email"  
-    "password"
-    "confirm";
+    grid-template-areas:
+        "label"
+        "name"
+        "email"
+        "password"
+        "confirm";
     grid-template-rows: repeat(20px, 4), 100px;
     width: 400px;
     height: 500px;
@@ -20,17 +20,17 @@
     border-radius: 50px;
 }
 
-#reg button{
+#reg button {
     width: 150px;
 }
 
-#productModal{
+#productModal {
     display: none;
-    grid-template-areas: 
-    'exit exit exit'
-    'photo text text'
-    'name text text'
-    'comment buy like';
+    grid-template-areas:
+        'exit exit exit'
+        'photo text text'
+        'name text text'
+        'comment buy like';
     grid-template-rows: 30px 400px 50px 100px;
     grid-template-columns: 370px 350px 80px;
     width: 844px;
@@ -49,7 +49,8 @@
     line-height: 130%;
     letter-spacing: 2px;
 }
-#productModal button{
+
+#productModal button {
     width: 263px;
     height: 74px;
     border-radius: 50px;
@@ -58,14 +59,14 @@
     letter-spacing: 5.22px;
 }
 
-#commentCard{
+#commentCard {
     position: fixed;
     top: 50%;
     left: 15%;
     display: none;
-    grid-template-areas: 
-    'comment'
-    'textBlock';
+    grid-template-areas:
+        'comment'
+        'textBlock';
     grid-template-rows: auto 180px;
     width: 356px;
     height: 620px;
@@ -77,14 +78,14 @@
     transform: translate(-50%, -50%);
 }
 
-#commentCard div::-webkit-scrollbar-track{
+#commentCard div::-webkit-scrollbar-track {
     background: none;
 }
 
-.commentMsg{
+.commentMsg {
     display: grid;
     grid-template-areas: 'name star'
-    'text text';
+        'text text';
     grid-template-rows: 10px auto;
     border-top: 1px solid #909090;
     border-bottom: 1px solid #909090;
@@ -93,15 +94,15 @@
     padding: 10px 0 10px 0;
 }
 
-#blackOut{
+#blackOut {
     display: none;
     position: absolute;
     backdrop-filter: blur(10px);
     width: 100%;
-    height: 3273px;
+    height: 1000%;
     z-index: 100;
 }
 
-.openModal{
+.openModal {
     overflow-y: hidden;
 }

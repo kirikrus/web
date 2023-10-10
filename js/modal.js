@@ -6,6 +6,8 @@ function open_modal(key, productId = null) {
             document.getElementById('reg').style.display = 'grid';
             break;
         case 2:
+            document.getElementById('commentCardFlex').innerHTML = '';
+
             var modal = document.getElementById('productModal');
 
             //XMLHttpRequest для отправки запроса на сервак
@@ -21,15 +23,15 @@ function open_modal(key, productId = null) {
 
                     modal.innerHTML = '<p style="grid-area: exit; justify-self: start;font-size: 100px;transform: rotate(45deg);  font-weight: 200; color: lightgrey; margin: 30px 0 0 30px; cursor: pointer;" onclick="close_modal(2)">+</p>'
                         +
-                        '<img src="css/img/' + productData.image + '" style="grid-area: photo;">'
+                        '<img src="css/img/' + productData.image + '" style="grid-area: photo;margin-top: -30px;">'
                         +
                         '<div style="grid-area: name;">'
                         +
-                        '<b style="text-transform: uppercase;">' + productData.name + '</b>'
+                        '<b style="text-transform: uppercase;line-height: 95%;">' + productData.name + '</b>'
                         +
-                        '<p>' + productData.price + '₽</p>'
+                        '<p style="margin:15px">' + productData.price + '₽</p>'
                         +
-                        '<p style="margin-top: -7px;color: #bababa;font-size: 16px;font-weight: 300;">5,0 ⭐</p>'
+                        '<p id="productCardMidRating" style="margin-top: -7px;color: #bababa;font-size: 16px;font-weight: 300;">' + productData.rating + ' ⭐</p>'
                         +
                         '</div>'
                         +
@@ -41,6 +43,7 @@ function open_modal(key, productId = null) {
                         +
                         '<img src="css/img/heart.png" style="grid-area: like; width: 50px; place-self: center;">';
                     modal.style.display = 'grid';
+
                     commentUpdate(productId);
                 }
             };
@@ -74,7 +77,6 @@ function close_modal(key) {
             close_modal(3);
             break;
         case 3:
-            document.getElementById('commentCardFlex').innerHTML = '';
             document.getElementById('commentCard').style.display = 'none';
     }
 }

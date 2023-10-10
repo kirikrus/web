@@ -64,14 +64,14 @@ input {
 }
 
 textarea,
-textarea:focus-visible{
+textarea:focus-visible {
     text-decoration: none;
     border: none;
     outline: none;
     resize: none;
 }
 
-textarea::-webkit-scrollbar-track{
+textarea::-webkit-scrollbar-track {
     background: none;
 }
 
@@ -339,11 +339,11 @@ body {
     gap: 50px 110px;
 }
 
-.product{
+.product {
     border-radius: 30px;
 }
 
-.product:not(#productModal):hover{
+.product:not(#productModal):hover {
     border: 1px solid gray;
     box-shadow: 0px 0px 10px black;
     width: 298px;
@@ -362,10 +362,13 @@ body {
 }
 
 .product div {
-    line-height: 10px;
-    margin-top: -30px;
+    line-height: 20px;
+    margin-top: -60px;
 }
 
+.product div b {
+    font-weight: 400;
+}
 
 footer,
 footer table {

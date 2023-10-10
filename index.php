@@ -29,7 +29,8 @@
   </div>
 
   <div id="commentCard" class="text" style="display: none;">
-    <div id="commentCardFlex" style="display: flex;flex-direction: column;align-content: center;align-items: center; overflow-y: scroll;">
+    <div id="commentCardFlex"
+      style="display: flex;flex-direction: column;align-content: center;align-items: center; overflow-y: scroll;">
 
     </div>
     <div style="display: grid; grid-template-rows: 30px 110px 30px; grid-template-areas: '1''2''3'; background: #404040;border-radius: 0px 0px 50px 50px;
@@ -245,9 +246,9 @@
           <table width="100%" class="pdtop50 text">
             <tr>
               <td class="search" colspan="6">
-                <form action="" method="post">
+                <form onsubmit="search(event)">
                   <button class="baseButton _focus" type="submit">Поиск</button>
-                  <input class="baseButton" type="search" placeholder="GUCCI Bloo..." />
+                  <input class="baseButton" type="search" id="searchInput" placeholder="GUCCI Bloo..." />
                 </form>
               </td>
             </tr>
@@ -268,7 +269,6 @@
               <p onclick="searchSort(event,1)">по стоимости max</p>
               <p onclick="searchSort(event,1)">по алфавиту A->Z</p>
               <p onclick="searchSort(event,1)">по алфавиту Z->A</p>
-              <p onclick="searchSort(event,1)">по новизне</p>
               <p onclick="searchSort(event,1)">по рейтингу</p>
             </div>
             <div class="searchCard" style="grid-area: '2';">
@@ -298,7 +298,7 @@
       </tr>
     </table>
 
-    <div class="buyPage">
+    <div id="buyPage" class="buyPage">
       <?php
       $conn = mysqli_connect("localhost", "root", "", "bd");
       if (!$conn) {
@@ -317,7 +317,6 @@
           echo "</div>";
           echo "</div>";
         }
-        echo "</table>";
         mysqli_free_result($result);
       } else {
         echo "Ошибка: " . mysqli_error($conn);
