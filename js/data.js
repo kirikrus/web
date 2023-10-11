@@ -1,5 +1,5 @@
 let styleOld = 0;
-let which = [];
+let which = [0,0,0,0,0,0,0,0,0,0];
 
 function searchSort(event, key = 0) {
     if (styleOld && key) {
@@ -105,9 +105,10 @@ function commentUpdate(productId) {
 function search(event) {
     event.preventDefault();
 
-    var word = document.getElementById('searchInput').value;
+    which[8] = "$" +  document.getElementsByName('serchCardCostInput')[0].value + "$";
+    which[9] = "$" + document.getElementsByName('serchCardCostInput')[1].value + "$";
 
-    which[8] = word;
+    which[10] =  document.getElementById('searchInput').value;
 
     var modal = document.getElementById('buyPage');
     var xhr = new XMLHttpRequest();

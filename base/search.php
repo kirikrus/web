@@ -3,95 +3,99 @@ $conn = mysqli_connect("localhost", "root", "", "bd");
 if (!$conn) {
     die("Ошибка: " . mysqli_connect_error());
 }
-$which = $_GET['which'];
 
-$file_path = "e:\\OSPanel\\domains\\localhost\\logs\\error.log";
+$which_ = $_GET['which'];
+
+for ($i = 0; $i < count($which_); $i++) {
+    if ($which_[$i] == '$') {
+        $count = ""; // Reset $count
+        $i++; // Move to the next element after '$'
+        while ($i < count($which_) && $which_[$i] != '$') {
+            $count .= $which_[$i];
+            $i++;
+        }
+        $which[$j] = ($count === '') ? 0 : $count; // Store the extracted value in $which array, converting empty string to 0
+        $j++;
+    } elseif ($which_[$i] != ",") {
+        $which[$j] = $which_[$i];
+        $j++;
+    }
+}
+
+$type = "";
+$rating = "";
+$word = "";
+$price = "";
+
+$file_path = "d:\\OSPanel\\domains\\localhost\\logs\\error.log";
 file_put_contents($file_path, "");
-error_log("This is an error message $which \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("--------------=SORT/SERCH=---------------- \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 
 $sql = "SELECT * FROM product";
 
-if ($which[1] != 0 || $which[2] != 0 || $which[3] != 0 || $which[4] != 0 || $which[5] != 0 || $which[6] != 0 || $which[7] != 0)
-    $sql .= " WHERE ";
-
-$count = 0;
-for ($i = 1; $i < 9; $i++) {
-    if ($which[$i] != 0 || $i == 8) {
-        $count++;
+for ($i = 1; $i < count($which); $i++) {
+    if ($which[$i] != 0 || $i == 10)
         switch ($i) {
             case 1:
                 if ($which[2] != 0)
-                    $sql .= " (type = '1' OR ";
+                    $type .= " type = '1' OR ";
                 else
-                    $sql .= " type = '1' AND ";
+                    $type .= " type = '1' ";
                 break;
             case 2:
-                if ($which[1] != 0)
-                    $sql .= " type = '2') AND ";
-                else
-                    $sql .= " type = '2' AND ";
+                    $type .= " type = '2' ";
                 break;
             case 3:
-                $sql .= " (rating >= '1' AND rating < '2') OR ";
+                $rating .= " (rating >= '1' AND rating < '2') OR ";
                 break;
             case 4:
-                $sql .= " (rating >= '2' AND rating < '3') OR ";
+                $rating .= " (rating >= '2' AND rating < '3') OR ";
                 break;
             case 5:
-                $sql .= " (rating >= '3' AND rating < '4') OR ";
+                $rating .= " (rating >= '3' AND rating < '4') OR ";
                 break;
             case 6:
-                $sql .= " (rating >= '4' AND rating < '5') OR ";
+                $rating .= " (rating >= '4' AND rating < '5') OR ";
                 break;
             case 7:
-                $sql .= " rating = '5' OR ";
+                $rating .= " rating = '5' OR ";
                 break;
             case 8:
-                $sql = rtrim($sql, " OR ");
-                $word = "";
-                for ($j = 8; $which[$j] != ''; $j++) {
-                    if ($which[$j] != "," && $which[$j] != 1 && $which[$j] != 0) {
-                        error_log("буква - $which[$j] \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+
+                break;
+            case 9:
+
+                break;
+            case 10:
+                $rating = rtrim($rating, " OR ");
+                for ($j = 10; $j < count($which); $j++) {
+                        error_log("буква - $which[$j] - ".gettype($which[$j])." \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
                         $word .= $which[$j];
                     }
-                }
-                error_log("слово - $word \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
-                if ($word != "") {
-                    if ($count == 1) {
-                        $sql .= " WHERE (name LIKE '%$word%'";
-                    } else {
-                        $sql .= " AND name LIKE '%$word%'";
-                    }
-                }
+                error_log("слово - $word \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+                if ($word != "")
+                        $word = " name LIKE '%$word%'";
                 break;
         }
-    }
-
-    error_log("skip $i - which = $which[$i]\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+    error_log(" - skip $i - which = $which[$i]\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 }
 
-$sql = rtrim($sql, " OR ");
-$sql = rtrim($sql, " AND ");
+error_log("type = $type rating = $rating word = $word\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 
-if ($count != 1 && $count != 2)
-    switch ($which[0]) {
-        case 0:
-            $sql .= ") ORDER BY price ASC";
-            break;
-        case 1:
-            $sql .= ") ORDER BY price DESC";
-            break;
-        case 2:
-            $sql .= ") ORDER BY name ASC";
-            break;
-        case 3:
-            $sql .= ") ORDER BY name DESC";
-            break;
-        case 4:
-            $sql .= ") ORDER BY rating DESC";
-            break;
-    }
-else
+if($type != "" || $rating!="" || $word != "")
+    $sql .= " WHERE ";
+
+if($type != "")
+    $sql .= " ( " . $type . " ) AND ";
+
+if($rating != "")
+    $sql .= " ( " . $rating . " ) AND ";
+
+if($word != "")
+    $sql .= $word . " AND ";
+
+    $sql = rtrim($sql, " AND ");
+
     switch ($which[0]) {
         case 0:
             $sql .= " ORDER BY price ASC";
@@ -110,8 +114,8 @@ else
             break;
     }
 
-error_log("This is an error message $sql \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
-
+error_log("SQL:: $sql \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("--------------------------------------\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 if ($result = mysqli_query($conn, $sql)) {
 
     $productData = [];

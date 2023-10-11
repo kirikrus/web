@@ -287,9 +287,9 @@
             <div class="searchCard" style="grid-area: '4';">
               <b onclick="searchSortOpenClose(4,1)">стоимость <img src="/css/img/list.png"></b>
               <i>от</i>
-              <input style="width: 223px; height: 40px; background: lightgray;" placeholder="1000"></input>
+              <input name="serchCardCostInput" style="width: 223px; height: 40px; background: lightgray;" placeholder="1000"></input>
               <i>до</i>
-              <input style="width: 223px; height: 40px; background: lightgray; margin-bottom: 30px;"
+              <input name="serchCardCostInput" style="width: 223px; height: 40px; background: lightgray; margin-bottom: 30px;"
                 placeholder="5000"></input>
             </div>
           </div>
