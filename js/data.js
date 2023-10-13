@@ -1,5 +1,5 @@
 let styleOld = 0;
-let which = [0,0,0,0,0,0,0,0,0,0];
+let which = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function searchSort(event, key = 0) {
     if (styleOld && key) {
@@ -105,10 +105,10 @@ function commentUpdate(productId) {
 function search(event) {
     event.preventDefault();
 
-    which[8] = "$" +  document.getElementsByName('serchCardCostInput')[0].value + "$";
+    which[8] = "$" + document.getElementsByName('serchCardCostInput')[0].value + "$";
     which[9] = "$" + document.getElementsByName('serchCardCostInput')[1].value + "$";
 
-    which[10] =  document.getElementById('searchInput').value;
+    which[10] = document.getElementById('searchInput').value;
 
     var modal = document.getElementById('buyPage');
     var xhr = new XMLHttpRequest();
@@ -141,3 +141,27 @@ function search(event) {
     xhr.open('GET', 'base/search.php?which=' + which, true);
     xhr.send();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("reg").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch("base/registration.php", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.entry = 1;
+                    sessionStorage.id = data.result.id;
+                    close_modal(1);
+                } else {
+                    document.getElementsByName("username")[0].style.background = 'rgb(241, 150, 150)';
+                    document.getElementsByName("email")[0].style.background = 'rgb(241, 150, 150)';
+                }
+            });
+    });
+});

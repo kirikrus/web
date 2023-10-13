@@ -4,22 +4,29 @@ if (!$conn) {
     die("Ошибка: " . mysqli_connect_error());
 }
 
+$file_path = "e:\\OSPanel\\domains\\localhost\\logs\\error.log";
+file_put_contents($file_path, "");
+error_log("--------------=SORT/SERCH=---------------- \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+
 $which_ = $_GET['which'];
 
-for ($i = 0; $i < count($which_); $i++) {
+$j = 0;
+
+for ($i = 0; $which_[$i] != ""; $i++) {
     if ($which_[$i] == '$') {
-        $count = ""; // Reset $count
-        $i++; // Move to the next element after '$'
-        while ($i < count($which_) && $which_[$i] != '$') {
+        $count = "";
+        $i++;
+        while ($which_[$i] != '$') {
             $count .= $which_[$i];
             $i++;
         }
-        $which[$j] = ($count === '') ? 0 : $count; // Store the extracted value in $which array, converting empty string to 0
+        $which[$j] = ($count === '') ? 0 : $count;
         $j++;
     } elseif ($which_[$i] != ",") {
         $which[$j] = $which_[$i];
         $j++;
     }
+    error_log("which[$i] = $which[$i]", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
 }
 
 $type = "";
@@ -27,14 +34,10 @@ $rating = "";
 $word = "";
 $price = "";
 
-$file_path = "d:\\OSPanel\\domains\\localhost\\logs\\error.log";
-file_put_contents($file_path, "");
-error_log("--------------=SORT/SERCH=---------------- \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
-
 $sql = "SELECT * FROM product";
 
 for ($i = 1; $i < count($which); $i++) {
-    if ($which[$i] != 0 || $i == 10)
+    if ($which[$i] > 0 || $i == 10)
         switch ($i) {
             case 1:
                 if ($which[2] != 0)
@@ -43,7 +46,7 @@ for ($i = 1; $i < count($which); $i++) {
                     $type .= " type = '1' ";
                 break;
             case 2:
-                    $type .= " type = '2' ";
+                $type .= " type = '2' ";
                 break;
             case 3:
                 $rating .= " (rating >= '1' AND rating < '2') OR ";
@@ -61,61 +64,67 @@ for ($i = 1; $i < count($which); $i++) {
                 $rating .= " rating = '5' OR ";
                 break;
             case 8:
-
+                $price .= " price >= $which[8] AND ";
                 break;
             case 9:
-
+                $price .= " price <= $which[9] ";
                 break;
             case 10:
                 $rating = rtrim($rating, " OR ");
                 for ($j = 10; $j < count($which); $j++) {
-                        error_log("буква - $which[$j] - ".gettype($which[$j])." \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
-                        $word .= $which[$j];
-                    }
-                error_log("слово - $word \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+                    error_log("буква - $which[$j] - " . gettype($which[$j]) . " \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+                    $word .= $which[$j];
+                }
+                error_log("слово - $word \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
                 if ($word != "")
-                        $word = " name LIKE '%$word%'";
+                    $word = " name LIKE '%$word%'";
                 break;
         }
-    error_log(" - skip $i - which = $which[$i]\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+    error_log(" - skip $i - which = $which[$i]\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
 }
 
-error_log("type = $type rating = $rating word = $word\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+$rating = rtrim($rating, " OR ");
+$price = rtrim($price, " AND ");
 
-if($type != "" || $rating!="" || $word != "")
+error_log("type = $type rating = $rating word = $word price = $price\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+
+if ($type != "" || $rating != "" || $word != "" || $price != "")
     $sql .= " WHERE ";
 
-if($type != "")
+if ($type != "")
     $sql .= " ( " . $type . " ) AND ";
 
-if($rating != "")
+if ($rating != "")
     $sql .= " ( " . $rating . " ) AND ";
 
-if($word != "")
+if ($price != "")
+    $sql .= " ( " . $price . " ) AND ";
+
+if ($word != "")
     $sql .= $word . " AND ";
 
-    $sql = rtrim($sql, " AND ");
+$sql = rtrim($sql, " AND ");
 
-    switch ($which[0]) {
-        case 0:
-            $sql .= " ORDER BY price ASC";
-            break;
-        case 1:
-            $sql .= " ORDER BY price DESC";
-            break;
-        case 2:
-            $sql .= " ORDER BY name ASC";
-            break;
-        case 3:
-            $sql .= " ORDER BY name DESC";
-            break;
-        case 4:
-            $sql .= " ORDER BY rating DESC";
-            break;
-    }
+switch ($which[0]) {
+    case 0:
+        $sql .= " ORDER BY price ASC";
+        break;
+    case 1:
+        $sql .= " ORDER BY price DESC";
+        break;
+    case 2:
+        $sql .= " ORDER BY name ASC";
+        break;
+    case 3:
+        $sql .= " ORDER BY name DESC";
+        break;
+    case 4:
+        $sql .= " ORDER BY rating DESC";
+        break;
+}
 
-error_log("SQL:: $sql \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
-error_log("--------------------------------------\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("SQL:: $sql \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("--------------------------------------\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
 if ($result = mysqli_query($conn, $sql)) {
 
     $productData = [];

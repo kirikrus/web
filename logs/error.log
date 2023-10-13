@@ -1,4 +1,5 @@
---------------=SORT/SERCH=---------------- 
-type =  rating =  word = 
-SQL:: SELECT * FROM product ORDER BY price ASC 
---------------------------------------
+--------------=REG=---------------- 
+input: sdfsdfg kirill.russdfsdinov.04@mail.ru sdfsdf
+SQL:: SELECT * FROM users WHERE name = 'sdfsdfg' OR email = 'kirill.russdfsdinov.04@mail.ru'
+response =  
+ -----------------------------------

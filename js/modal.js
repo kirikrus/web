@@ -70,7 +70,6 @@ function close_modal(key) {
             document.getElementById('reg').style.display = 'none';
             document.getElementById('navReg').style.display = 'none';
             document.getElementById('navIcons').style.display = 'block';
-            sessionStorage.entry = 1;
             break;
         case 2:
             document.getElementById('productModal').style.display = 'none';

@@ -18,15 +18,15 @@
 
 <body onscroll="getPositionScroll(event)" onload="reload()">
 
-  <div id="reg">
+  <form id="reg" method="POST">
     <p class="text" style="font-weight: 600; font-size: 40px; color: var(--main-color); margin: 50px 0 0 0;">Регистрация
     </p>
-    <input style=" grid-area: name" placeholder="Имя" class="baseButton">
-    <input style=" grid-area: email" placeholder="Email@email" class="baseButton">
-    <input style=" grid-area: password" placeholder="Пароль" class="baseButton">
+    <input style=" grid-area: name" name="username" placeholder="Имя" class="baseButton">
+    <input style=" grid-area: email" name="email" placeholder="Email@email" type="email" class="baseButton">
+    <input style=" grid-area: password" name="password" placeholder="Пароль" type="password" class="baseButton">
     <button style=" grid-area: confirm; background: var(--main-color)" class="baseButton _zoomIn"
-      onclick="close_modal(1)">Подтвердить</button>
-  </div>
+      type="submit">Подтвердить</button>
+  </form>
 
   <div id="commentCard" class="text" style="display: none;">
     <div id="commentCardFlex"
@@ -287,9 +287,11 @@
             <div class="searchCard" style="grid-area: '4';">
               <b onclick="searchSortOpenClose(4,1)">стоимость <img src="/css/img/list.png"></b>
               <i>от</i>
-              <input name="serchCardCostInput" style="width: 223px; height: 40px; background: lightgray;" placeholder="1000"></input>
+              <input name="serchCardCostInput" style="width: 223px; height: 40px; background: lightgray;"
+                placeholder="1000"></input>
               <i>до</i>
-              <input name="serchCardCostInput" style="width: 223px; height: 40px; background: lightgray; margin-bottom: 30px;"
+              <input name="serchCardCostInput"
+                style="width: 223px; height: 40px; background: lightgray; margin-bottom: 30px;"
                 placeholder="5000"></input>
             </div>
           </div>
