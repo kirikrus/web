@@ -1,12 +1,13 @@
 #reg {
     display: none;
     grid-template-areas:
-        "label"
-        "name"
-        "email"
-        "password"
-        "confirm";
-    grid-template-rows: repeat(20px, 4), 100px;
+        "exit label"
+        "name name"
+        "email email"
+        "password password"
+        "confirm confirm";
+    grid-template-rows: 120px 100px 100px 100px 100px;
+    grid-template-columns: 0 100%;
     width: 400px;
     height: 500px;
     z-index: 101;

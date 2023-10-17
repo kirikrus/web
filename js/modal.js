@@ -41,7 +41,7 @@ function open_modal(key, productId = null) {
                         +
                         '<button style="grid-area: buy ;justify-self: left; align-self: center; width: 300px; background: ' + productData.color + ';" class="baseButton _zoomIn" onclick="close_modal(2)">купить</button>'
                         +
-                        '<img src="css/img/heart.png" style="grid-area: like; width: 50px; place-self: center;">';
+                        '<img src="css/img/heart.png" class="_zoomIn" onclick="favoriteProduct('+productData.id+','+"'add'"+')"  style="grid-area: like;width: 50px; height: 50px; place-self: center; pointer-events: all;">';
                     modal.style.display = 'grid';
 
                     commentUpdate(productId);
@@ -68,8 +68,10 @@ function close_modal(key) {
     switch (key) {
         case 1:
             document.getElementById('reg').style.display = 'none';
-            document.getElementById('navReg').style.display = 'none';
-            document.getElementById('navIcons').style.display = 'block';
+            if (sessionStorage.getItem('entry') == 1) {
+                document.getElementById('navReg').style.display = 'none';
+                document.getElementById('navIcons').style.display = 'block';
+            }
             break;
         case 2:
             document.getElementById('productModal').style.display = 'none';

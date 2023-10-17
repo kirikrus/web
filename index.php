@@ -19,7 +19,11 @@
 <body onscroll="getPositionScroll(event)" onload="reload()">
 
   <form id="reg" method="POST">
-    <p class="text" style="font-weight: 600; font-size: 40px; color: var(--main-color); margin: 50px 0 0 0;">Регистрация
+    <p style="grid-area: exit; justify-self: start;font-size: 100px;transform: rotate(45deg);  font-weight: 200; color: lightgrey; margin: -30px 0 0 0; cursor: pointer;"
+      onclick="close_modal(1)">+</p>
+    <p class="text"
+      style="grid-area: label;font-weight: 600; font-size: 40px; color: var(--main-color); margin: 50px 0 0 0;">
+      Регистрация
     </p>
     <input style=" grid-area: name" name="username" placeholder="Имя" class="baseButton">
     <input style=" grid-area: email" name="email" placeholder="Email@email" type="email" class="baseButton">
@@ -80,12 +84,12 @@
           <table id="navReg" align="center" style="z-index: 2; position: relative;">
             <tr>
               <td>
-                <input class="baseButton" type="text" placeholder="Почта" />
+                <input id="emailEntry" class="baseButton" type="text" placeholder="Почта" />
               </td>
             </tr>
             <tr>
               <td style="padding-top: 10px">
-                <input class="baseButton" type="password" placeholder="Пароль" />
+                <input id="passwordEntry" class="baseButton" type="password" placeholder="Пароль" />
               </td>
             </tr>
             <tr>
@@ -94,7 +98,7 @@
                       background: var(--main-color);
                       width: 114px;
                       height: 50px;
-                    ">
+                    " onclick="userEntry()">
                   Вход
                 </button>
               </td>

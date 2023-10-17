@@ -15,9 +15,10 @@
         rel="stylesheet">
     <script src="../js/some.js"></script>
     <script src="../js/modal.js"></script>
+    <script src="../js/data.js"></script>
 </head>
 
-<body class="text">
+<body class="text" onload="updateProfile()">
     <span id="profileLine"></span>
 
     <div id="blackOut"></div>
@@ -34,14 +35,7 @@
 
     <div id="mainPageProfile">
 
-        <div id="userCard">
-            <span style="display: block;height: 200px; width: 200px; border-radius: 50%; background: gray;"></span>
-            <p class="textHightlight" style="color: var(--white-color); font-size: 40px;">Кирилл</p>
-            <p style="font-size: 32px; font-weight: 300;">Очки: 789</p>
-            <p></p>
-            <p>Адрес доставки:<br />Омск, ул. Ленина, 1, кв 3</p>
-            <p style="place-self: normal;">Телефон:<br />8(977)303-95-29</p>
-        </div>
+        <div id="userCard"></div>
 
         <div id="navBarProfile" style="grid-area: nav;">
             <a onclick="profileNav(1)">Корзина</a>
@@ -131,23 +125,19 @@
         <div id="settingPageProfile" style="display: none;">
             <div id="setting">
                 <p>Имя</p>
-                <input type="text" placeholder="Кирилл" />
+                <input name="change" type="text" placeholder="Имя" />
             </div>
             <div id="setting">
                 <p>Пароль</p>
-                <input type="password" placeholder="*******************" />
-            </div>
-            <div id="setting">
-                <p>Почта</p>
-                <input type="email" placeholder="kirill.04@mail.tu" />
+                <input name="change" type="password" placeholder="************" />
             </div>
             <div id="setting">
                 <p>Адрес</p>
-                <input type="text" placeholder="Омск, ул. Ленина, 1, кв 3" />
+                <input name="change" type="text" placeholder="г. Город, ул. Улица, д. Дом" />
             </div>
             <div id="setting">
                 <p>Телефон</p>
-                <input type="tel" placeholder="8(977)303-95-29" />
+                <input name="change" type="tel" placeholder="8(987)6543210" />
             </div>
             <div id="setting">
                 <p>Оформление</p>
@@ -159,8 +149,15 @@
                 </div>
             </div>
             <div id="setting">
-                <button class="baseButton _focus _zoomIn">Выйти</button>
-                <button class="baseButton _focus _zoomIn" style="justify-self: end;">Удалить аккаунт</button>
+                <button class="baseButton _focus _zoomIn" onclick="getOut()">Выйти</button>
+                <script>
+                    function getOut(){
+                        sessionStorage.entry = 0;
+                        sessionStorage.id = 0;
+                        window.location.href = "../index.php";
+                    }
+                </script>
+                <button id="deleteUserBt" class="baseButton _focus _zoomIn" style="justify-self: end;">Удалить аккаунт</button>
             </div>
         </div>
 

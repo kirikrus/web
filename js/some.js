@@ -50,6 +50,7 @@ function profileNav(key) {
             pageName.innerHTML = 'Настройки';
             document.getElementById('settingPageProfile').style.display = 'block';
             buttonName.innerHTML = 'Подтвердить';
+            buttonName.onclick = changeUserInfo;
             break;
     }
 }

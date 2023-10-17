@@ -144,24 +144,238 @@ function search(event) {
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("reg").addEventListener("submit", function (e) {
+
         e.preventDefault();
 
-        const formData = new FormData(this);
+        if (
+            document.getElementsByName('username')[0].value != ''
+            &&
+            document.getElementsByName('email')[0].value != ''
+            &&
+            document.getElementsByName('password')[0].value != ''
+        ) {
 
-        fetch("base/registration.php", {
+            document.getElementsByName("username")[0].style.background = 'white';
+            document.getElementsByName("email")[0].style.background = 'white';
+            document.getElementsByName('password')[0].style.background = 'white';
+
+            const formData = new FormData(this);
+
+            fetch("base/registration.php", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        sessionStorage.entry = 1;
+                        sessionStorage.id = data.result.id;
+                        close_modal(1);
+                    } else {
+                        document.getElementsByName("username")[0].style.background = 'rgb(241, 150, 150)';
+                        document.getElementsByName("email")[0].style.background = 'rgb(241, 150, 150)';
+                    }
+                });
+        }
+        else {
+            document.getElementsByName("username")[0].style.background = 'rgb(241, 150, 150)';
+            document.getElementsByName("email")[0].style.background = 'rgb(241, 150, 150)';
+            document.getElementsByName('password')[0].style.background = 'rgb(241, 150, 150)';
+        }
+    });
+});
+
+function userEntry() {
+    var email = document.getElementById('emailEntry');
+    var password = document.getElementById('passwordEntry');
+    if (
+        email.value != ''
+        &&
+        password.value != ''
+    ) {
+
+        email.style.background = 'white';
+        password.style.background = 'white';
+
+        fetch("base/authorization.php", {
             method: "POST",
-            body: formData
+            body: JSON.stringify({
+                email: email.value,
+                password: password.value
+            }),
+            headers: { "Content-Type": "application/json" },
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     sessionStorage.entry = 1;
-                    sessionStorage.id = data.result.id;
+                    sessionStorage.id = data.userData.id;
                     close_modal(1);
                 } else {
-                    document.getElementsByName("username")[0].style.background = 'rgb(241, 150, 150)';
-                    document.getElementsByName("email")[0].style.background = 'rgb(241, 150, 150)';
+                    email.style.background = 'rgb(241, 150, 150)';
+                    password.style.background = 'rgb(241, 150, 150)';
                 }
             });
-    });
+    }
+    else {
+        email.style.background = 'rgb(241, 150, 150)';
+        password.style.background = 'rgb(241, 150, 150)';
+    }
+}
+
+function updateProfile() {
+    html.style.setProperty('--main-color', localStorage.getItem("color"));
+    var modal = document.getElementById('userCard');
+    modal.innerHTML = '';
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var user = JSON.parse(xhr.responseText);//ответ сервака
+            var adress_ = user.adress == null ? 'нужно добавить!' : user.adress;
+            var tel_ = user.tel == null ? 'нужно добавить!' : user.tel;
+            modal.innerHTML =
+                '<span style="display: block;height: 200px; width: 200px; border-radius: 50%; background: gray;"></span>'
+                +
+                '<p class="textHightlight" style="color: var(--white-color); font-size: 40px;">' + user.name + '</p>'
+                +
+                '<p style="font-size: 32px; font-weight: 300;">Баллы: ' + user.rating + '</p>'
+                +
+                '<p></p>'
+                +
+                '<p>Адрес доставки:<br />' + adress_ + '</p>'
+                +
+                '<p style="place-self: normal;">Телефон:<br />' + tel_ + '</p>';
+            modal.style.display = 'grid';
+
+        }
+    };
+
+    xhr.open('GET', '../base/getUser.php?id=' + sessionStorage.id, true);
+    xhr.send();
+}
+
+function changeUserInfo() {
+    var changes = document.getElementsByName('change');
+
+    fetch("../base/changeUserInfo.php", {
+        method: "POST",
+        body: JSON.stringify({
+            id: sessionStorage.id,
+            name: changes[0].value,
+            password: changes[1].value,
+            adress: changes[2].value,
+            tel: changes[3].value
+        }),
+        headers: { "Content-Type": "application/json" },
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tel) {
+                changes[3].style.background = 'rgb(241, 150, 150)';
+            }
+            else {
+                window.location.reload();
+            }
+        });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var bt = document.getElementById('deleteUserBt');
+    var redValue = 0;
+    var key = 0;
+    bt.onmousedown = function () {
+        key = 1;
+        if (key) {
+            interval = setInterval(function () {
+                bt.style.background = 'rgb(' + redValue + ',0,0)';
+                redValue += 5;
+                if (redValue >= 255) {
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+    };
+
+    bt.onmouseup = function () {
+        clearInterval(interval);
+        key = 0;
+        if (redValue >= 255) {
+            fetch("../base/deleteUser.php", {
+                method: "POST",
+                body: JSON.stringify({
+                    id: sessionStorage.id,
+                }),
+                headers: { "Content-Type": "application/json" },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        sessionStorage.entry = 0;
+                        sessionStorage.id = 0;
+                        window.location.href = "../index.php";
+                    }
+                });
+        }
+        redValue = 0;
+        bt.style.background = '';
+    };
 });
+
+function favoriteProduct(productID, action) {
+    if(sessionStorage.entry != 0)
+    switch (action) {
+        case 'get':
+            fetch("base/favorites.php", {
+                method: "POST",
+                body: JSON.stringify({
+                    key: action,
+                    userID: sessionStorage.id,
+                    producrID: productID,
+                }),
+                headers: { "Content-Type": "application/json" },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+
+                    }
+                });
+            break;
+        case 'add':
+            fetch("base/favorites.php", {
+                method: "POST",
+                body: JSON.stringify({
+                    key: action,
+                    userID: sessionStorage.id,
+                    productID: productID,
+                }),
+                headers: { "Content-Type": "application/json" },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+
+                    }
+                });
+            break;
+        case 'delete':
+            fetch("base/favorites.php", {
+                method: "POST",
+                body: JSON.stringify({
+                    key: action,
+                    userID: sessionStorage.id,
+                    productID: productID,
+                }),
+                headers: { "Content-Type": "application/json" },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    }
+                });
+            break;
+    }
+}

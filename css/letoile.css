@@ -55,6 +55,10 @@ img {
     pointer-events: none;
 }
 
+input:-internal-autofill-selected {
+    background: none;
+}
+
 input:focus-visible,
 input {
     text-decoration: none;

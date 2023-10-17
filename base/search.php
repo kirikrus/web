@@ -4,9 +4,9 @@ if (!$conn) {
     die("Ошибка: " . mysqli_connect_error());
 }
 
-$file_path = "e:\\OSPanel\\domains\\localhost\\logs\\error.log";
+$file_path = "d:\\OSPanel\\domains\\localhost\\logs\\error.log";
 file_put_contents($file_path, "");
-error_log("--------------=SORT/SERCH=---------------- \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("--------------=SORT/SERCH=---------------- \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 
 $which_ = $_GET['which'];
 
@@ -26,7 +26,7 @@ for ($i = 0; $which_[$i] != ""; $i++) {
         $which[$j] = $which_[$i];
         $j++;
     }
-    error_log("which[$i] = $which[$i]", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+    error_log("which[$i] = $which[$i]", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 }
 
 $type = "";
@@ -72,21 +72,21 @@ for ($i = 1; $i < count($which); $i++) {
             case 10:
                 $rating = rtrim($rating, " OR ");
                 for ($j = 10; $j < count($which); $j++) {
-                    error_log("буква - $which[$j] - " . gettype($which[$j]) . " \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+                    error_log("буква - $which[$j] - " . gettype($which[$j]) . " \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
                     $word .= $which[$j];
                 }
-                error_log("слово - $word \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+                error_log("слово - $word \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
                 if ($word != "")
                     $word = " name LIKE '%$word%'";
                 break;
         }
-    error_log(" - skip $i - which = $which[$i]\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+    error_log(" - skip $i - which = $which[$i]\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 }
 
 $rating = rtrim($rating, " OR ");
 $price = rtrim($price, " AND ");
 
-error_log("type = $type rating = $rating word = $word price = $price\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("type = $type rating = $rating word = $word price = $price\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 
 if ($type != "" || $rating != "" || $word != "" || $price != "")
     $sql .= " WHERE ";
@@ -123,8 +123,8 @@ switch ($which[0]) {
         break;
 }
 
-error_log("SQL:: $sql \n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
-error_log("--------------------------------------\n", 3, "e:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("SQL:: $sql \n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
+error_log("--------------------------------------\n", 3, "d:\\OSPanel\\domains\\localhost\\logs\\error.log");
 if ($result = mysqli_query($conn, $sql)) {
 
     $productData = [];
