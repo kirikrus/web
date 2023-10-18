@@ -33,6 +33,7 @@ html {
     font-family: Roboto;
     color: var(--white-text);
     overflow: hidden overlay;
+    scroll-behavior: smooth;
 }
 
 a {
@@ -214,6 +215,16 @@ body {
     font-weight: 200;
     line-height: 30px;
     letter-spacing: 2px;
+}
+
+.limited-text {
+    margin-left: 30px;
+    padding: 1px;
+    display: block;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .bgImgBlur {

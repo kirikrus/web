@@ -252,14 +252,14 @@ function updateProfile() {
         }
     };
 
-    xhr.open('GET', '../base/getUser.php?id=' + sessionStorage.id, true);
+    xhr.open('GET', 'base/getUser.php?id=' + sessionStorage.id, true);
     xhr.send();
 }
 
 function changeUserInfo() {
     var changes = document.getElementsByName('change');
 
-    fetch("../base/changeUserInfo.php", {
+    fetch("base/changeUserInfo.php", {
         method: "POST",
         body: JSON.stringify({
             id: sessionStorage.id,
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
         clearInterval(interval);
         key = 0;
         if (redValue >= 255) {
-            fetch("../base/deleteUser.php", {
+            fetch("base/deleteUser.php", {
                 method: "POST",
                 body: JSON.stringify({
                     id: sessionStorage.id,
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.success) {
                         sessionStorage.entry = 0;
                         sessionStorage.id = 0;
-                        window.location.href = "../index.php";
+                        window.location.href = "index.php";
                     }
                 });
         }
@@ -324,58 +324,178 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function favoriteProduct(productID, action) {
-    if(sessionStorage.entry != 0)
-    switch (action) {
-        case 'get':
-            fetch("base/favorites.php", {
-                method: "POST",
-                body: JSON.stringify({
-                    key: action,
-                    userID: sessionStorage.id,
-                    producrID: productID,
-                }),
-                headers: { "Content-Type": "application/json" },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
+    if (sessionStorage.entry != 0)
+        switch (action) {
+            case 'get':
+                fetch("base/favorites.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        key: action,
+                        userID: sessionStorage.id,
+                        producrID: productID,
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            var page = document.getElementById('favoritesPage');
+                            page.innerHTML = '';
 
-                    }
-                });
-            break;
-        case 'add':
-            fetch("base/favorites.php", {
-                method: "POST",
-                body: JSON.stringify({
-                    key: action,
-                    userID: sessionStorage.id,
-                    productID: productID,
-                }),
-                headers: { "Content-Type": "application/json" },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
+                            var data_ = data.favorites;
+                            data_.forEach(data_ => {
+                                page.innerHTML +=
+                                    '<div class="product text">'
+                                    +
+                                    '<button class="_zoomIn text">'
+                                    +
+                                    '<p style="margin: -6px 0 0 0;" onclick="favoriteProduct(' + data_.id + ',' + "'delete')" + '"' + '>-</p>'
+                                    +
+                                    '</button>'
+                                    +
+                                    '<div id="productBlock" onclick="open_modal(2,' + data_.id + ')">'
+                                    +
+                                    '<img src="css/img/' + data_.image + '" style="height:170px">'
+                                    +
+                                    '<div style="line-height: 10px;margin-top: -16px;">'
+                                    +
+                                    '<b style="text-transform: uppercase;" class="limited-text">' + data_.name + "</b>"
+                                    +
+                                    "<p>" + data_.price + "₽</p>"
+                                    +
+                                    '</div>'
+                                    +
+                                    '</div>'
+                                    +
+                                    '</div>'
+                            });
+                        }
+                    });
+                break;
+            case 'add':
+                fetch("base/favorites.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        key: action,
+                        userID: sessionStorage.id,
+                        productID: productID,
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('heart').style.filter = 'sepia(1) hue-rotate(282deg) saturate(3)';
+                        }
+                    });
+                break;
+            case 'delete':
+                fetch("base/favorites.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        key: action,
+                        userID: sessionStorage.id,
+                        productID: productID,
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.reload();
+                        }
+                    });
+                break;
+        }
+}
 
-                    }
-                });
-            break;
-        case 'delete':
-            fetch("base/favorites.php", {
-                method: "POST",
-                body: JSON.stringify({
-                    key: action,
-                    userID: sessionStorage.id,
-                    productID: productID,
-                }),
-                headers: { "Content-Type": "application/json" },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.reload();
-                    }
-                });
-            break;
-    }
+function orderProduct(productID, action) {
+    if (sessionStorage.entry != 0)
+        switch (action) {
+            case 'get':
+                fetch("base/order.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        key: action,
+                        userID: sessionStorage.id,
+                        producrID: productID,
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            var page = document.getElementById('orderPage');
+                            page.innerHTML = '';
+
+                            var totalCost = 0;
+
+                            var data_ = data.order;
+                            data_.forEach(data_ => {
+                                page.innerHTML +=
+                                    '<div class="product text">'
+                                    +
+                                    '<button class="_zoomIn text">'
+                                    +
+                                    '<p style="margin: -6px 0 0 0;" onclick="orderProduct(' + data_.id + ',' + "'delete')" + '"' + '>-</p>'
+                                    +
+                                    '</button>'
+                                    +
+                                    '<div id="productBlock" onclick="open_modal(2,' + data_.id + ')">'
+                                    +
+                                    '<img src="css/img/' + data_.image + '" style="height:170px">'
+                                    +
+                                    '<div style="line-height: 10px;margin-top: -16px;">'
+                                    +
+                                    '<b style="text-transform: uppercase;" class="limited-text">' + data_.count + "x " + data_.name + "</b>"
+                                    +
+                                    "<p>" + data_.price + "₽</p>"
+                                    +
+                                    '</div>'
+                                    +
+                                    '</div>'
+                                    +
+                                    '</div>';
+                                totalCost += parseInt(data_.price) * parseInt(data_.count);
+                            });
+                            document.getElementById('totalCost').innerHTML = totalCost + '₽';
+                        }
+                    });
+                break;
+            case 'add':
+                fetch("base/order.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        key: action,
+                        userID: sessionStorage.id,
+                        productID: productID,
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            close_modal(2);
+                        }
+                    });
+                break;
+            case 'delete':
+                fetch("base/order.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        key: action,
+                        userID: sessionStorage.id,
+                        productID: productID,
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.reload();
+                        }
+                    });
+                break;
+        }
+
 }

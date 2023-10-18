@@ -16,7 +16,7 @@ function getPositionScroll(event) {
 
 function reload() {
     html = document.querySelector('html');
-    html.style.setProperty('--main-color',  localStorage.getItem("color"));
+    html.style.setProperty('--main-color', localStorage.getItem("color"));
     if (sessionStorage.getItem("entry") == 1) {
         document.getElementById('navReg').style.display = 'none';
         document.getElementById('navIcons').style.display = 'block';
@@ -39,7 +39,7 @@ function profileNav(key) {
         case 1:
             pageName.innerHTML = 'Корзина';
             document.getElementById('bagPageProfile').style.display = 'grid';
-            buttonName.innerHTML = 'Оплатить';
+            buttonName.innerHTML = 'Заказать';
             break;
         case 2:
             pageName.innerHTML = 'Избранное';
@@ -55,8 +55,72 @@ function profileNav(key) {
     }
 }
 
-function changeColor(color){
+function changeColor(color) {
     localStorage.color = color;
     html = document.querySelector('html');
     html.style.setProperty('--main-color', color);
+}
+
+function starChange(which) {
+    var star = document.getElementsByName('star');
+    switch (which) {
+        case 1:
+            if (star[0].style.filter == '')
+                star[0].style.filter = 'brightness(1)';
+            else {
+                star[0].style.filter = '';
+                star[1].style.filter = '';
+                star[2].style.filter = '';
+                star[3].style.filter = '';
+                star[4].style.filter = '';
+            }
+            break;
+        case 2:
+            if (star[1].style.filter == '') {
+                star[0].style.filter = 'brightness(1)';
+                star[1].style.filter = 'brightness(1)';
+            }
+            else {
+                star[1].style.filter = '';
+                star[2].style.filter = '';
+                star[3].style.filter = '';
+                star[4].style.filter = '';
+            }
+            break;
+        case 3:
+            if (star[2].style.filter == '') {
+                star[0].style.filter = 'brightness(1)';
+                star[1].style.filter = 'brightness(1)';
+                star[2].style.filter = 'brightness(1)';
+            }
+            else {
+                star[2].style.filter = '';
+                star[3].style.filter = '';
+                star[4].style.filter = '';
+            }
+            break;
+        case 4:
+            if (star[3].style.filter == '') {
+                star[0].style.filter = 'brightness(1)';
+                star[1].style.filter = 'brightness(1)';
+                star[2].style.filter = 'brightness(1)';
+                star[3].style.filter = 'brightness(1)';
+            }
+            else {
+                star[3].style.filter = '';
+                star[4].style.filter = '';
+            }
+            break;
+        case 5:
+            if (star[4].style.filter == '') {
+                star[0].style.filter = 'brightness(1)';
+                star[1].style.filter = 'brightness(1)';
+                star[2].style.filter = 'brightness(1)';
+                star[3].style.filter = 'brightness(1)';
+                star[4].style.filter = 'brightness(1)';
+            }
+            else
+                star[4].style.filter = '';
+            break;
+    }
 }

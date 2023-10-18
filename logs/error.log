@@ -1,2 +1,5 @@
 --------------=FAV=---------------- 
-input: add 5 2
+input: get(string) 9 
+SQL:: SELECT p.*, uf.count FROM user_order AS uf JOIN product AS p ON uf.product_id = p.id WHERE uf.user_id = 9
+get-res: yes
+get-res: yes

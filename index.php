@@ -40,11 +40,11 @@
     <div style="display: grid; grid-template-rows: 30px 110px 30px; grid-template-areas: '1''2''3'; background: #404040;border-radius: 0px 0px 50px 50px;
     ">
       <div style="display: grid;grid-template-areas: '1 2 3 4 5'; width: min-content; margin-left: 30px;">
-        <span>⭐</span>
-        <span>⭐</span>
-        <span>⭐</span>
-        <span>⭐</span>
-        <span>⭐</span>
+        <span name="star" onclick="starChange(1)">⭐</span>
+        <span name="star" onclick="starChange(2)">⭐</span>
+        <span name="star" onclick="starChange(3)">⭐</span>
+        <span name="star" onclick="starChange(4)">⭐</span>
+        <span name="star" onclick="starChange(5)">⭐</span>
       </div>
       <textarea class="text" type="text" style="width: 288px;
     height: 109px; place-self: center; "></textarea>
@@ -52,6 +52,8 @@
         style="place-self: end;width: 50px; border-radius: 100%; background: var(--main-color); font-weight: 700; font-size: 30px;">↑</button>
     </div>
   </div>
+
+  <a id="upper" class="_focus _zoomOut" href="#mainPage"> ⇧ </a>
 
   <div id="productModal" class="product text"></div>
 
@@ -74,10 +76,14 @@
           <p>Главная</p>
         </td>
         <td class="vatop pdtop50 _zoomOut">
-          <p>Парфюмерия</p>
+          <a href="#buyPage">
+            <p>Парфюмерия</p>
+          </a>
         </td>
         <td class="vatop pdtop50 _zoomOut">
-          <p>Косметика</p>
+          <a href="#buyPage">
+            <p>Косметика</p>
+          </a>
         </td>
         <td width="290px">
 
@@ -118,8 +124,7 @@
                 <a style="width: 55px; display: block;" href=""><img src="css/img/bag_icon.png"></a>
               </td>
               <td class="_zoomOut">
-                <a style="width: 55px; display: block;" href="pages/profile.php"><img
-                    src="css/img/profile_icon.png"></a>
+                <a style="width: 55px; display: block;" href="profile.php"><img src="css/img/profile_icon.png"></a>
               </td>
             </tr>
           </table>

@@ -1,4 +1,5 @@
 ._zoomOut:hover p,
+._zoomOut:hover a,
 ._zoomOut:hover img {
     transition: 0.3s linear;
     transform: scale(1.2);
@@ -13,6 +14,7 @@
 
 ._zoomOut,
 ._zoomOut p,
+._zoomOut a,
 ._zoomIn,
 ._focus,
 ._zoomOut img {

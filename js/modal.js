@@ -39,9 +39,9 @@ function open_modal(key, productId = null) {
                         +
                         '<button style="grid-area: comment; background: transparent; border: 1px solid white; place-self: center" class="baseButton _zoomIn" onclick="open_modal(3)">отзывы</button>'
                         +
-                        '<button style="grid-area: buy ;justify-self: left; align-self: center; width: 300px; background: ' + productData.color + ';" class="baseButton _zoomIn" onclick="close_modal(2)">купить</button>'
+                        '<button style="grid-area: buy ;justify-self: left; align-self: center; width: 300px; background: ' + productData.color + ';" class="baseButton _zoomIn" onclick="orderProduct(' + productData.id + ',' + "'add'" + ')">купить</button>'
                         +
-                        '<img src="css/img/heart.png" class="_zoomIn" onclick="favoriteProduct('+productData.id+','+"'add'"+')"  style="grid-area: like;width: 50px; height: 50px; place-self: center; pointer-events: all;">';
+                        '<img src="css/img/heart.png" id="heart" class="_zoomIn" onclick="favoriteProduct(' + productData.id + ',' + "'add'" + ')"  style="grid-area: like;width: 50px; height: 50px; place-self: center; pointer-events: all;">';
                     modal.style.display = 'grid';
 
                     commentUpdate(productId);
